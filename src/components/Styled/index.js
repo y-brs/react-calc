@@ -54,13 +54,7 @@ export const Button = styled.button`
 
   ${({control}) => control && `background: skyblue;`}
 
-  ${({equals}) => equals && `
-    border-bottom-right-radius: 10px;
-    background: gray;
-  `}
+  ${({equals}) => equals && `border-bottom-right-radius: 10px;`}
 
-  ${({period}) => period && `
-    border-bottom-left-radius: 10px;
-    background: skyblue;
-  `}
+  ${({period}) => period && `border-bottom-left-radius: 10px;`}
 `
