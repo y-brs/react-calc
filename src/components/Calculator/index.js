@@ -12,8 +12,14 @@ export default function Calculator () {
     setCurrent(current + value);
   }
 
-  const handleDelete = () => {
-    setCurrent(String(current).slice(0, -1));
+  const handleProcent = () => {
+    let procentValue = current / 100;
+    setCurrent(procentValue);
+  }
+
+  const handlePlusMinus = () => {
+    let pmValue = parseFloat(current) * -1;
+    setCurrent(pmValue);
   }
 
   const handleAllClear = () => {
@@ -38,7 +44,7 @@ export default function Calculator () {
 
   const equals = () => {
     let value = compute();
-    if (value == undefined || value == null) return;
+    if (value === undefined || value == null) return;
 
     setCurrent(value);
     setPrevious("");
@@ -46,6 +52,30 @@ export default function Calculator () {
   }
 
   const compute = () => {
+    let result;
+    let previousNumber = parseFloat(previous);
+    let currentNumber = parseFloat(current);
+
+    if (isNaN(previousNumber) || isNaN(currentNumber)) return;
+
+    switch(operation) {
+      case "÷":
+        result = previousNumber / currentNumber;
+        break;
+      case "×":
+        result = previousNumber * currentNumber;
+        break;
+      case "–":
+        result = previousNumber - currentNumber;
+        break;
+      case "+":
+        result = previousNumber + currentNumber;
+        break;
+      default:
+        return;
+    }
+
+    return result;
   }
 
   return (
@@ -55,9 +85,10 @@ export default function Calculator () {
         <Current>{current}</Current>
       </Screen>
 
-      <Button onClick={handleAllClear} gridSpan={2} control>AC</Button>
-      <Button onClick={handleDelete} ontrol>DEL</Button>
-      <Button onClick={chooseOperation} data={"+"} operation>÷</Button>
+      <Button onClick={handleAllClear} control>AC</Button>
+      <Button onClick={handlePlusMinus} control>±</Button>
+      <Button onClick={handleProcent} control>%</Button>
+      <Button onClick={chooseOperation} data={"÷"} operation>÷</Button>
 
       <Button onClick={appendValue} data={"7"}>7</Button>
       <Button onClick={appendValue} data={"8"}>8</Button>
@@ -72,11 +103,11 @@ export default function Calculator () {
       <Button onClick={appendValue} data={"1"}>1</Button>
       <Button onClick={appendValue} data={"2"}>2</Button>
       <Button onClick={appendValue} data={"3"}>3</Button>
-      <Button onClick={chooseOperation} data={"-"} operation>–</Button>
+      <Button onClick={chooseOperation} data={"–"} operation>–</Button>
 
-      <Button onClick={appendValue} data={"."} period control>.</Button>
-      <Button onClick={appendValue} data={"0"}>0</Button>
-      <Button onClick={equals} gridSpan={2} operation equals>=</Button>
+      <Button onClick={appendValue} data={"0"} gridSpan={2}>0</Button>
+      <Button onClick={appendValue} data={"."} dot>●</Button>
+      <Button onClick={equals} operation>=</Button>
     </Container>
   )
 }
