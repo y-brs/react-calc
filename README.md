@@ -1,3 +1,5 @@
+# React Calculator App
+
 This is a veeery simple project I built using React with styled components.
 
 Deployed live on https://react-calc-7725be.netlify.app. Check out!
